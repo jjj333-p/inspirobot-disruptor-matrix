@@ -1,0 +1,13 @@
+# The homeserver your bot is on
+# Note that some homeservers have `matrix.` prepended onto the URL
+homeserver-url: 'https://matrix.HOMESERVER'
+
+# The login token for the bot
+# You can obtain this by going into Element and navigating to Settings > Help & About > Advanced > Access Token
+login-token: 'TOKEN HERE'
+
+# The prefix for the bot to run on
+prefix: '!'
+
+# After how many consecutive messages from a user to send a message
+msg-limit: 10
