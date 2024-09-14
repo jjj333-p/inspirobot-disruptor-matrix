@@ -11,6 +11,8 @@ This bot is very simple, there is one command and for the most part it just sits
 - You can run `!inspire` to fetch one manually
 - Do note, this bot does not support encryption
 
+![Screenshot 2024-09-13 at 18-49-49 Element 28 On the third day of 9_11 Osama gave to me](https://github.com/user-attachments/assets/1ae39b9e-7e6c-4678-bac8-fe05e72a27b7)
+
 # Hosting
 
 ### What you need:
