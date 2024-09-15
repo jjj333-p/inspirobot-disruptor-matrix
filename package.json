@@ -1,24 +1,23 @@
 {
-  "name": "spam-police",
-  "description": "A Matrix bot to monitor and respond to investment scam spamming across the Matrix platform, for example in rooms with a permanently offline admin.",
+  "name": "inspirobot-disruptor",
+  "description": "Every x messages of a monologue, the bot disrupts with an inspiring quote from https://inspirobot.me/",
   "main": "index.js",
   "type": "module",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jjj333-p/spam-police.git"
+    "url": "git+https://github.com/jjj333-p/inspirobot-disruptor-matrix.git"
   },
   "author": "jjj333_p",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/jjj333-p/spam-police/issues"
+    "url": "https://github.com/jjj333-p/inspirobot-disruptor-matrix/issues"
   },
-  "homepage": "https://github.com/jjj333-p/spam-police#readme",
+  "homepage": "https://github.com/jjj333-p/inspirobot-disruptor-matrix#readme",
   "dependencies": {
-    "@gnuxie/matrix-protection-suite": "^0.18.2",
     "@matrix-org/matrix-sdk-crypto-nodejs": "0.1.0-beta.12",
     "axios": "^1.7.1",
     "matrix-bot-sdk": "^0.7.1",
