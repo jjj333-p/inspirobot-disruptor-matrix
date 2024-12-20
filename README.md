@@ -2,6 +2,9 @@
 
 Every x messages of a monologue, the bot disrupts with an inspiring quote from https://inspirobot.me/
 
+It rarely hits the mark but sometimes it does...
+![image](https://github.com/user-attachments/assets/e6aa562a-9465-4e77-95be-257da98b311e)
+
 # Usage
 
 This bot is very simple, there is one command and for the most part it just sits in the background. You can invite my bot `@inspirobot-disruptor:matrix.org` or host it yourself.
