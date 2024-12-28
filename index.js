@@ -168,3 +168,12 @@ client.on("room.event", async (roomId, event) => {
 		}
 	}
 });
+
+client.on("room.join", (roomId) => {
+	client
+		.sendText(
+			roomId,
+			"Hi! You can find usage information and source code available at https://github.com/jjj333-p/inspirobot-disruptor-matrix",
+		)
+		.catch(() => {});
+});
