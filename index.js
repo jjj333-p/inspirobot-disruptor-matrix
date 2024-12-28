@@ -72,12 +72,6 @@ client.on("room.event", async (roomId, event) => {
 			event,
 			"You can find usage information and source code available at https://github.com/jjj333-p/inspirobot-disruptor-matrix",
 		);
-	} else if (body.startsWith(`${prefix}help`)) {
-		client.replyNotice(
-			roomId,
-			event,
-			"You can find usage information and source code available at https://github.com/jjj333-p/matrix-word-counter",
-		);
 	} else if (body.startsWith(`${prefix}inspire`)) {
 		//api to generate a quote image
 		let imageUrl;
