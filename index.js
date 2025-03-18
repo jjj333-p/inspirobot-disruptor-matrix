@@ -88,7 +88,7 @@ client.on("room.event", async (roomId, event) => {
 		//create a message body, both html and plaintext fallback
 		let plainBody = "";
 		let htmlBody = "<ol>";
-		for (const e in latest30) {
+		for (const e of l30) {
 			if (!e?.content?.body) {
 				client
 					.replyHtmlNotice(
@@ -100,8 +100,8 @@ client.on("room.event", async (roomId, event) => {
 				return;
 			}
 
-			const url = `https://matrix.to/#/${e.room_id}/${e.event_id}`;
-			const slicedBody = e.content.body.slice(0, 10);
+			const url = `https://matrix.to/#/${roomId}/${e.event_id}`;
+			const slicedBody = e.content.body.slice(0, 20);
 
 			plainBody += `- ${e.sender} "${slicedBody}" ${url}`;
 			htmlBody += `<li><p>${e.sender} <code>${slicedBody}</code> <a href="${url}">${e.event_id}</a></p></li>`;
