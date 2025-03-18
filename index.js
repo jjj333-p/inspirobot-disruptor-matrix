@@ -101,6 +101,9 @@ client.on("room.event", async (roomId, event) => {
 			htmlBody += `<li><p>${e.sender} <code>${slicedBody}</code> <a href="${url}">${e.event_id}</a></p></li>`;
 		}
 
+		//close the html
+		htmlBody += "</ol>";
+
 		//send it off
 		client.replyNotice(roomId, event, plainBody, htmlBody).catch(() => {});
 	}
