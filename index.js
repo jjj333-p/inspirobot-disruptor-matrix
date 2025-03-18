@@ -83,7 +83,7 @@ client.on("room.event", async (roomId, event) => {
 		let plainBody = "";
 		let htmlBody = "<ol>";
 		for (const e in latest30) {
-			if (!e) {
+			if (!e?.content?.body) {
 				client
 					.replyNotice(
 						roomId,
