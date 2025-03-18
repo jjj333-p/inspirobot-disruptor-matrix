@@ -6,12 +6,12 @@ import {
 	RichRepliesPreprocessor,
 } from "matrix-bot-sdk";
 import { readFileSync } from "node:fs";
-import { parse } from "yaml";
+import YAML from "yaml";
 import axios from "axios";
 
 //Parse YAML configuration file
 const loginFile = readFileSync("./db/login.yaml", "utf8");
-const loginParsed = parse(loginFile);
+const loginParsed = YAML.parse(loginFile);
 const homeserver = loginParsed["homeserver-url"];
 const accessToken = loginParsed["login-token"];
 const prefix = loginParsed.prefix;
@@ -19,6 +19,9 @@ const msgLimit = loginParsed["msg-limit"];
 
 //keep track of whos ranting
 const rants = new Map();
+
+//for debugging
+const latest30 = [];
 
 //the bot sync something idk bro it was here in the example so i dont touch it ;-;
 const storage = new SimpleFsStorageProvider("bot.json");
@@ -64,6 +67,9 @@ client.on("room.event", async (roomId, event) => {
 	//we just want raw text tbh
 	if (!event?.content?.body) return;
 
+	//append latest event, check if more than 30, and remove oldest item if so
+	if (latest30.push(event) > 30) latest30.shift();
+
 	const body = event.content.body.toLowerCase();
 
 	if (body.startsWith(`${prefix}help`)) {
@@ -72,7 +78,33 @@ client.on("room.event", async (roomId, event) => {
 			event,
 			"You can find usage information and source code available at https://github.com/jjj333-p/inspirobot-disruptor-matrix",
 		);
-	} else if (body.startsWith(`${prefix}inspire`)) {
+	} else if (body.startsWith(`${prefix}debug`)) {
+		//create a message body, both html and plaintext fallback
+		let plainBody = "";
+		let htmlBody = "<ol>";
+		for (const e in latest30) {
+			if (!e) {
+				client
+					.replyNotice(
+						roomId,
+						event,
+						`Something went horribly wrong, event in "latest30" array is falsey. Raw latest30:\n\n${YAML.stringify(latest30)}`,
+					)
+					.catch(() => {});
+				return;
+			}
+
+			const url = `https://matrix.to/#/${e.room_id}/${e.event_id}`;
+			const slicedBody = e.content.body.slice(0, 10);
+
+			plainBody += `- ${e.sender} "${slicedBody}" ${url}`;
+			htmlBody += `<li><p>${e.sender} <code>${slicedBody}</code> <a href="${url}">${e.event_id}</a></p></li>`;
+		}
+
+		//send it off
+		client.replyNotice(roomId, event, plainBody, htmlBody).catch(() => {});
+	}
+	if (body.startsWith(`${prefix}inspire`)) {
 		//api to generate a quote image
 		let imageUrl;
 		try {
