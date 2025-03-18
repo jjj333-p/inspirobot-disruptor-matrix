@@ -21,7 +21,7 @@ const msgLimit = loginParsed["msg-limit"];
 const rants = new Map();
 
 //for debugging
-const latest30 = [];
+const latest30 = new Map();
 
 //the bot sync something idk bro it was here in the example so i dont touch it ;-;
 const storage = new SimpleFsStorageProvider("bot.json");
@@ -67,8 +67,14 @@ client.on("room.event", async (roomId, event) => {
 	//we just want raw text tbh
 	if (!event?.content?.body) return;
 
+	//fetch from map
+	let l30 = latest30.get(roomId);
+	if (!l30) {
+		l30 = [];
+		latest30.set(roomId, l30);
+	}
 	//append latest event, check if more than 30, and remove oldest item if so
-	if (latest30.push(event) > 30) latest30.shift();
+	if (l30.push(event) > 30) l30.shift();
 
 	const body = event.content.body.toLowerCase();
 
@@ -85,10 +91,10 @@ client.on("room.event", async (roomId, event) => {
 		for (const e in latest30) {
 			if (!e?.content?.body) {
 				client
-					.replyNotice(
+					.replyHtmlNotice(
 						roomId,
 						event,
-						`Something went horribly wrong, event in "latest30" array is falsey. Raw latest30:\n\n${YAML.stringify(latest30)}`,
+						`Something went horribly wrong, event in "latest30" array is falsey. Raw latest30:\n<blockquote>${YAML.stringify(latest30)}</blockquote>`,
 					)
 					.catch(() => {});
 				return;
